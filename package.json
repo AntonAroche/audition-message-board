@@ -4,7 +4,8 @@
   "description": "A RESTful API service for posting messages and determining if they are palindromes.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,9 @@
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.1"
+    "eslint-plugin-promise": "^5.1.1",
+    "jest": "^27.4.0",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.1.6"
   }
 }
