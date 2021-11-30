@@ -162,7 +162,6 @@ describe(`On the route ${endpoint}`, () => {
             })
 
             it('should give a 400 error if the text is not specified', async () => {
-                console.log('REACHING')
                 const response = await request.patch(idEndpoint(testId)).send({})
 
                 expect(response.status).toBe(400)

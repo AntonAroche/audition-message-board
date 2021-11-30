@@ -1,5 +1,3 @@
-const express = require('express')
-const router = express.Router()
 const Message = require('../models/message')
 const palindromeCheck = require('../operations/palindromeCheck')
 const { errorMessages } = require('../constants')
@@ -12,7 +10,7 @@ const sendNotFound = (res) => {
 
 exports.textBodyValidationMiddleware = (req, res, next) => {
     const text = req?.body?.text
-    console.log('SENDING')
+
     if (typeof text === 'string') {
         return next()
     } else {
@@ -62,7 +60,6 @@ exports.getMessage = async (req, res) => {
 
 // Update a single message
 exports.updateMessage = async (req, res) => {
-    console.log('WWOW')
     const text = req.body.text
     try {
         const updatedMessage = await Message.updateOne(

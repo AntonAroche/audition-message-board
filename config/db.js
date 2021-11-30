@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const db = 'mongodb://localhost/audition-message-board'
 
+// Intiates the database connection
 const connectDB = async () => {
     try {
         await mongoose.connect(db, {
