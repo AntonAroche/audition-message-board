@@ -1,12 +1,12 @@
 # Audition Message Board
 
-This example message board is a REST API service which manages messages, providing their information and determining if they are palindromes. It is built in the Express Node.js framework, and as a REST API, provides create, retrieve, update and delete functions for messages, as well
+This example message board is a REST API service which manages messages, providing their information and determining if they are palindromes. It is built in the Express Node.js framework and provides create, retrieve, update and delete functions for messages.
 
 The following diagram shows the architecture of the message board:
 
 ![message board architecture diagram](MessageBoardArchitecture.png)
 
-This API uses the common Route/Model/Controller architecture. The messages routes redirect request to the appropriate controller, which handles the API requests for each type of operation. 
+This API uses the common Route/Model/Controller architecture. The /messages routes redirect requests to the appropriate controller, which handles the API requests for each type of operation. 
 
 This controller uses the Palindrome Checker operation to check if a new message is a palindrome before it is added or updated in the database. 
 
