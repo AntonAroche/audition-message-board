@@ -11,5 +11,18 @@
         "sourceType": "module"
     },
     "rules": {
+        "semi": [
+            "error",
+            "never"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "no-console": "warn",
+        "indent": [
+            "error",
+            4
+        ]
     }
 }

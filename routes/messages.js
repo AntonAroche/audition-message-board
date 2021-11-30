@@ -1,4 +1,4 @@
-const express = require("express")
+const express = require('express')
 const router = express.Router()
 const messageController = require('../controllers/messages')
 
@@ -9,14 +9,14 @@ router.get('/', messageController.listMessages)
 router.post('/', messageController.textBodyValidationMiddleware)
 router.post('/', messageController.createMessage)
 
-// Retrieve a single message 
+// Retrieve a single message
 router.get('/:messageId', messageController.getMessage)
 
 // Update a single message
-router.patch('/', messageController.textBodyValidationMiddleware)
+router.patch('/:messageId', messageController.textBodyValidationMiddleware)
 router.patch('/:messageId', messageController.updateMessage)
 
 // Delete a single message
 router.delete('/:messageId', messageController.deleteMessage)
 
-module.exports = router;
+module.exports = router

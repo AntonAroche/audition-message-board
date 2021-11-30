@@ -11,3 +11,5 @@ app.use(express.json())
 app.use('/messages', messages)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+
+module.exports = app

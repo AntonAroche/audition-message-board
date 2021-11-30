@@ -1,22 +1,23 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const Message = require('../models/message')
 const palindromeCheck = require('../operations/palindromeCheck')
+const { errorMessages } = require('../constants')
 
 const sendNotFound = (res) => {
     res.status(404).send({
-        message: "The message with the requested ID was not found."
+        message: errorMessages.NOT_FOUND
     })
 }
 
 exports.textBodyValidationMiddleware = (req, res, next) => {
     const text = req?.body?.text
-
-    if (typeof text == 'string') {
+    console.log('SENDING')
+    if (typeof text === 'string') {
         return next()
     } else {
         res.status(400).send({
-            message: 'The body of the request does not contain the string attribute "text"'
+            message: errorMessages.BAD_REQUEST
         })
     }
 }
@@ -27,7 +28,7 @@ exports.listMessages = async (req, res) => {
         const messages = await Message.find()
         res.json(messages)
     } catch (err) {
-        res.json(err)
+        res.status(500).send(err)
     }
 }
 
@@ -35,18 +36,17 @@ exports.listMessages = async (req, res) => {
 exports.createMessage = async (req, res) => {
     const text = req.body.text
     try {
-        const newMessage = new Message({
+        const newMessage = await Message.create({
             text,
             isPalindrome: palindromeCheck(req.body.text)
         })
-        const savedMessage = await newMessage.save()
-        res.json(savedMessage)
+        res.json(newMessage)
     } catch (err) {
-        res.json(err)
+        res.status(500).send(err)
     }
 }
 
-// Retrieve a single message 
+// Retrieve a single message
 exports.getMessage = async (req, res) => {
     try {
         const message = await Message.findById(req.params.messageId)
@@ -56,25 +56,26 @@ exports.getMessage = async (req, res) => {
             sendNotFound(res)
         }
     } catch (err) {
-        res.json(err)
+        res.status(500).send(err)
     }
 }
 
 // Update a single message
 exports.updateMessage = async (req, res) => {
+    console.log('WWOW')
     const text = req.body.text
     try {
         const updatedMessage = await Message.updateOne(
             { _id: req.params.messageId },
             { $set: { text, isPalindrome: palindromeCheck(text) } }
         )
-        if (updatedMessage.matchedCount == 1) {
+        if (updatedMessage.matchedCount === 1) {
             res.json(updatedMessage)
         } else {
             sendNotFound(res)
         }
     } catch (err) {
-        res.json(err)
+        res.status(500).send(err)
     }
 }
 
@@ -82,12 +83,12 @@ exports.updateMessage = async (req, res) => {
 exports.deleteMessage = async (req, res) => {
     try {
         const removedMessage = await Message.deleteOne({ _id: req.params.messageId })
-        if (removedMessage.deletedCount == 1) {
+        if (removedMessage.deletedCount === 1) {
             res.json(removedMessage)
         } else {
             sendNotFound(res)
         }
     } catch (err) {
-        res.json(err)
+        res.status(500).send(err)
     }
 }
